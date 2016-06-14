@@ -2,6 +2,7 @@ var _ = require('lodash');
 var UserModel = require('../models/user');
 var PasswordHelper = require('../utils/password');
 var jwt = require('jsonwebtoken');
+var configs = require('../configs');
 
 exports = module.exports = {
     authenticate: function (req, res, next) {
@@ -18,7 +19,7 @@ exports = module.exports = {
                 if (user) {
                     // perform password check
                     if (PasswordHelper.verify(userInfo.password, user.password)) {
-                        var token = exports.createToken(userInfo);
+                        var token = exports.createToken(user);
                         res.json({
                             success: true,
                             message: 'Enjoy your token!',
@@ -34,10 +35,10 @@ exports = module.exports = {
         });
     },
 
-    createToken: function (_userInfo) {
+    createToken: function (_user) {
         // if user is found and password is right
         // create a token
-        var token = jwt.sign(_userInfo, _userInfo.password, {
+        var token = jwt.sign(_user, configs.secret, {
             expiresIn: "365 days" // expires in 24 hours
         });
 

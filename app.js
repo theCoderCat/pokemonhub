@@ -9,10 +9,9 @@ var mongoose = require('mongoose');
 var multer = require('multer'); // v1.0.5
 var upload = multer(); // for parsing multipart/form-data
 var jwt = require('jsonwebtoken');
-var router = express.Router(); 
+var router = express.Router();
 
 var configs = require('./configs');
-var middleware = require('./middleware');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,12 +31,30 @@ if (mongoConfig.enable){
   mongoose.connect(mongoConfig.location);
 }
 
+// app.set('superSecret', configs.secret);
+
+// login/logout routes
+var UserLogin = require('./logics/user.login');
+var UserLogout = require('./logics/user.logout');
+var UserRegister = require('./logics/user.register');
+router.post('/login', UserLogin.authenticate);
+router.post('/register', UserRegister);
+router.get('/logout', UserLogout);
+
 // declare middleware
-middleware(app, router);
-require('./routes.js')(app, router);
+require('./middleware.js')(app, router);
 
 // get routes
+app.use(require('./routes.js')(app, router));
+// app.use('/', require('./routes/index'));
+// app.use('/users', require('./routes/users'));
 
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
 // error handlers
 
 // development error handler

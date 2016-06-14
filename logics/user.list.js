@@ -1,3 +1,6 @@
+var _ = require('lodash');
+var UserModel = require('../models/user');
+
 module.exports = function (req, res, next) {
   UserModel.find({}, function (err, results) {
     if (err) {
