@@ -23,7 +23,7 @@ var userSchema = new Schema({
   is_shiny: Boolean,
   is_egg: Boolean,
   esv: Number,
-  owner: {},
+  owner: { type : Number, ref : 'Trainer' },
 });
 
 module.exports = mongoose.model('PokemonModel', userSchema);

@@ -1,8 +1,8 @@
 var _ = require('lodash');
-var UserModel = require('../models/user');
+var TrainerModel = require('../models/trainer');
 
 module.exports = function (req, res, next) {
-  UserModel.find({}, function (err, results) {
+  TrainerModel.find({}, function (err, results) {
     if (err) {
       res.send('Cannot connect to mongodb');
     } else {

@@ -34,12 +34,12 @@ if (mongoConfig.enable){
 // app.set('superSecret', configs.secret);
 
 // login/logout routes
-var UserLogin = require('./logics/user.login');
-var UserLogout = require('./logics/user.logout');
-var UserRegister = require('./logics/user.register');
-router.post('/login', UserLogin.authenticate);
-router.post('/register', UserRegister);
-router.get('/logout', UserLogout);
+var TrainerLogin = require('./logics/trainer.login');
+var TrainerLogout = require('./logics/trainer.logout');
+var TrainerRegister = require('./logics/trainer.register');
+router.post('/login', TrainerLogin.authenticate);
+router.post('/register', TrainerRegister);
+router.get('/logout', TrainerLogout);
 
 // declare middleware
 require('./middleware.js')(app, router);

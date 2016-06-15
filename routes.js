@@ -1,8 +1,8 @@
-// user
-var UserRegister = require('./logics/user.register');
-var UserGet = require('./logics/user.get');
-var UserList = require('./logics/user.list');
-var UserUpdate = require('./logics/user.update');
+// trainer
+var TrainerRegister = require('./logics/trainer.register');
+var TrainerGet = require('./logics/trainer.get');
+var TrainerList = require('./logics/trainer.list');
+var TrainerUpdate = require('./logics/trainer.update');
 
 // pokemon
 var PokemonCreate = require('./logics/pokemon.create');
@@ -31,19 +31,19 @@ exports = module.exports = function (app, router) {
         res.render('index', { title: 'Express' });
     });
 
-    /* GET users listing. */
-    router.get('/users', UserList);
+    /* GET trainers listing. */
+    router.get('/trainers', TrainerList);
 
-    // get user information
-    router.get('/users/:id', UserGet);
+    // get trainer information
+    router.get('/trainers/:id', TrainerGet);
 
-    // authenticate user
+    // authenticate trainer
 
-    // register user
-    router.post('/users/register', UserRegister);
+    // register trainer
+    router.post('/trainers/register', TrainerRegister);
 
-    // change user information
-    router.post('/users/update', UserUpdate);
+    // change trainer information
+    router.post('/trainers/update', TrainerUpdate);
 
     return router;
 }
